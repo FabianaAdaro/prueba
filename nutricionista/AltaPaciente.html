@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-4.5.0-dist/css/bootstrap.css">
+    <title>Alta paciente</title>
+</head>
+
+    <body style="background-color:rgb(206, 176, 230);">
+        
+        
+        
+
+        <div class="container-fluid bg-secondary py-s">
+            <div class="container text-white">
+                <h1>
+                    
+                    <div class="display-1">
+                       
+                         Centro de Salud Bienestar
+                     </div>
+                 </h1> 
+                  Lic.Maria Carolina Duarte mp.6578
+              </div>
+          </div>
+          <div class="span12" style="border: 2px solid black"></div>
+         <h1>Alta Paciente</h1>
+           
+                <div class="cointainer">
+                    <div class="row">
+              
+                      <div class="col-3"></div>
+                         <div class="col-6">
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert" id="divAlerta">
+                              Algo de alerta
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="btnCerrar" onclick="cerrarAlerta()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                              <div class="container-fluid bg-danger" role="alert" id="divMostrarDatosCargados">
+                               <div class="mostrar datos ingresados" >
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="btnCerrar" onclick="cerrarMostrarDatosCargados()">
+                                   <span aria-hidden="true">&times;</span>
+                                  </button>
+                               </div>
+                             </div>
+                            <form>
+                                 <div class="form-group">                                                       
+                                     <label>Nombre : </label>
+                                     <input type="text" class="form-control form-control-sm"  id="txtNombre"   >
+                                  </div>
+              
+                                   <div class="form-group">                                                       
+                                  
+                                      <label>Apellido :</label> 
+                                       <input type="text" class="form-control form-control-sm"  id="txtApellido"   >
+                                  </div>                                       
+                                  <div class="form-group">
+                                    <label>Edad: </label><br>
+                                    <input class="form-control form-control-sm" type="text" id="txtedad" />
+                                </div>
+                                  <div class="form-check">  
+                                      Sexo: <br>             
+                                      <input class="form-check-input" type="radio" name="sexo" value="1" />
+                                      <label class="form-check-label">Masculino </label>
+                                  </div>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="sexo" value="2" />
+                                      <label class="form-check-label">Femenino </label>
+                                  </div>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="sexo" value="3" />
+                                      <label class="form-check-label">otro </label>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Tipo Documento: </label><br>
+                                      <select class="form-control" id="cmbTipoDocumento">
+                                          <option value="">Seleccione</option>
+                                          <option value="1">DNI</option>
+                                          <option value="2">Pasaporte</option>
+                                          <option value="3">Libreta Cívica</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Número de Dni: </label><br>
+                                      <input class="form-control form-control-sm" type="text" id="txtDni" />
+                                  </div>
+                                  <label> Comentarios</label><br>
+                                 
+                                  <textarea row="7" cols="60" id="txtComentario"></textarea>
+                                  <br>
+                                  <input type="button" value="Aceptar" class="btn btn-primary" id="btnAceptar" onclick="validarForm()" />
+                                </div> 
+                               
+              
+              
+                           </form>
+                          </div>
+                  
+                         <div class="col-3"></div>
+                      </div>     
+                  </div>
+                  
+                  <script>
+                      document.getElementById('divAlerta').style.display = 'none';
+                      document.getElementById('divMostrarDatosCargados').style.display = 'none'
+                      
+                  </script>
+                  <script>
+                      function validarForm(){
+                          let txtNombre = document.getElementById('txtNombre').value;
+                          let txtApellido = document.getElementById('txtApellido').value;
+                          let txtedad =document.getElementById ("txtedad").value;
+                          let radiosSexo = document.getElementsByName('sexo');
+                          let cmbTipoDocumento = document.getElementById('cmbTipoDocumento');
+                          let txtDni =document.getElementById ("txtDni").value;
+                          let Comentario = document.getElementById ("txtComentario").value;
+                          let mensaje = "";
+                          let mensajeCorrecto = "";
+              
+              
+                          
+                          if(txtNombre == "" )
+                              { 
+                               mensaje += '<li>Ingrese el nombre</li>'; 
+                              }
+                             else
+                               {
+                                 mensajeCorrecto += '<li>Nombre</li>'+txtNombre;
+              
+                               }
+              
+                          if(txtApellido == "" )
+                             {
+                              mensaje += '<li>Ingrese el Apellido</li>'; 
+                             }
+                             else
+                             {
+                                 mensajeCorrecto += '<li>Apellido</li>'+txtApellido;
+                             }
+                             if(isNaN(txtedad)|| (txtedad ==""))
+                              {
+                               mensaje += '<li>Ingrese valor numerico en edad </li>'; 
+                              }
+                              else
+                                {
+                                  mensajeCorrecto +='<li>Edad</li>'+txtedad;
+                                }
+              
+                          let algunoCheckeado = false;
+                          for (let i = 0; i < radiosSexo.length; i++) {
+                              if(radiosSexo[i].checked)
+                              {
+                                  algunoCheckeado = true;
+                                  break;
+                              }
+                          }
+              
+                          if(!algunoCheckeado)
+                              mensaje += '<li>Seleccione sexo</li>'; 
+                             
+                          if(cmbTipoDocumento.value == "")
+                              
+                              mensaje += '<li>Seleccione un tipo de documento</li>';    
+              
+                              if(isNaN(txtDni)|| (txtDni ==""))
+                              {
+                               mensaje += '<li>Ingrese valor numerico en el dni </li>'; 
+                              }
+                              else
+                                {
+                                  mensajeCorrecto +='<li>Dni</li>'+txtDni;
+                                }
+                          if(txtComentario== "") 
+                          mensaje += '<li>Ingrese un comentario</li>';
+              
+                             if(mensaje != "")
+                          {
+                              document.getElementById('divAlerta').innerHTML = "<ul>" + mensaje + "</ul><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='btnCerrar'  onclick='cerrarAlerta()'><span aria-hidden='true'>×</span></button>";
+                              document.getElementById('divAlerta').style.display = 'block'
+                              
+              
+                          }
+                          else
+                            if ((txtNombre != "") && (txtApellido != "") && (isNaN(txtDni)|| (txtDni !="")))
+                            {
+              
+                            
+                              document.getElementById('divAlerta').style.display = 'none';  
+                              document.getElementById('divMostrarDatosCargados').innerHTML = "<ul>" + mensajeCorrecto + " "+ "</ul><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='btnCerrarM'  onclick='cerrarAlertaMostrarDatosCorrectos()'><span aria-hidden='true'>×</span></button>";
+                              document.getElementById('divMostrarDatosCargados').style.display = 'block'
+                            
+                            }
+                            else
+                             {
+              
+                              document.getElementById('divAlerta').innerHTML = "<ul>" + mensaje + "</ul><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='btnCerrar'  onclick='cerrarAlerta()'><span aria-hidden='true'>×</span></button>";
+                              document.getElementById('divAlerta').style.display = 'block'
+              
+                             }
+                              
+              
+              
+              
+                      }
+                      function cerrarAlerta()
+                      {
+                          document.getElementById('divAlerta').style.display = 'none';
+                      }
+                    
+                      function cerrarAlertaMostrarDatosCorrectos()
+                      {
+                          document.getElementById('divMostrarDatosCargados').style.display = 'none';
+                      }
+                  </script>
+              
+              <br>
+              <a class="btn btn-success" href="C:\Users\Usuario\Desktop\nutricionista\FichaMedica.html" role="button" target="_blank">FichaMedica</a>
+              <br>
+              <br>
+              <a class="btn btn-success" href="C:\Users\Usuario\Desktop\nutricionista\TablaComidas.html" role="button" target="_blank">Ir a tabla Comidas</a> 
+</body>
+</html> 
